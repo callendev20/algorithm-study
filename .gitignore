@@ -1,0 +1,7 @@
+# Ignore 실행 파일
+*
+!*.*
+!*/
+
+.DS_Store
+.vscode
