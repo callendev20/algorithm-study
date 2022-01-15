@@ -4,33 +4,43 @@ using namespace std;
 int main()
 {
    ios::sync_with_stdio(0);
-   // cin.tie(0);
-   string str, command;
+   cin.tie(0);
+   string str;
    int n;
    cin >> str >> n;
-   vector<char> v(str.begin(), str.end());
-   // cout << *str.begin() << ", " << *str.end() << "\n";
-   vector<char>::iterator cursor = v.end();
-   while (n-- > 0)
+   list<char> l;
+   for (auto c : str)
+      l.push_back(c);
+   auto cursor = l.end();
+   while (n--)
    {
-      cin >> command;
-      if (!command.compare("L") && cursor != v.begin())
-         cursor--;
-      else if (!command.compare("D") && cursor != v.end())
-         cursor++;
-      else if (!command.compare("B"))
+      char op;
+      cin >> op;
+      if (op == 'P')
       {
-         if (cursor == v.begin())
-            continue;
-         v.erase(cursor - 1);
+         char add;
+         cin >> add;
+         l.insert(cursor, add);
       }
-      else
+      else if (op == 'L')
       {
-         v.insert(cursor, *(command.end() - 1));
-         cout << *(command.end() - 1);
-         cursor++;
+         if (cursor != l.begin())
+            cursor--;
+      }
+      else if (op == 'D')
+      {
+         if (cursor != l.end())
+            cursor++;
+      }
+      else if (op == 'B')
+      {
+         if (cursor != l.begin())
+         {
+            cursor--;
+            cursor = l.erase(cursor);
+         }
       }
    }
-   string ret(v.begin(), v.end());
-   cout << ret;
+   for (auto c : l)
+      cout << c;
 }
